@@ -23,3 +23,11 @@ func Test_GetDomainByLevel(t *testing.T) {
 	}
 	fmt.Println(domain)
 }
+
+func Test_GetDomainArr(t *testing.T) {
+	domainArr, err := GetDomainArr(rawURL)
+	if err != nil {
+		log.Fatalln(err)
+	}
+	fmt.Println(domainArr)
+}

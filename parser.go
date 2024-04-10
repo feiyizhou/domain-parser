@@ -10,7 +10,7 @@ import (
 
 // GetTopLevelDomain get the top level domain
 func GetTopLevelDomain(rawURL string) (string, error) {
-	domainArr, err := getDomainArr(rawURL)
+	domainArr, err := GetDomainArr(rawURL)
 	if err != nil {
 		return "", err
 	}
@@ -22,7 +22,7 @@ func GetTopLevelDomain(rawURL string) (string, error) {
 // The level of domain start at 0, 0 means the top level domain,
 // 1 means first level domain, 2 means secondary domain and so on
 func GetDomainByLevel(rawURL string, level int) (string, error) {
-	domainArr, err := getDomainArr(rawURL)
+	domainArr, err := GetDomainArr(rawURL)
 	if err != nil {
 		return "", err
 	}
@@ -30,6 +30,37 @@ func GetDomainByLevel(rawURL string, level int) (string, error) {
 		return "", errors.New("The level of domain is invalid ")
 	}
 	return domainArr[len(domainArr)-1-level], err
+}
+
+// GetDomainArr get the domain string arr of rawURL
+//
+// The domain string array is sorted in desc order by domain name
+// level, means the top level domain is tha last one
+func GetDomainArr(rawURL string) ([]string, error) {
+	hostArr, err := splitHost(rawURL)
+	if err != nil {
+		return nil, err
+	}
+	var (
+		rootDomainArr []string
+		domainMap     = top_level_domain.TopLevelDomainTree
+	)
+	for i := len(hostArr) - 1; i >= 0; i-- {
+		if domain, ok := domainMap[hostArr[i]]; ok {
+			rootDomainArr = append([]string{hostArr[i]}, rootDomainArr...)
+			hostArr = hostArr[:i]
+			if domain == nil {
+				break
+			} else {
+				domainMap = *domain
+			}
+		}
+	}
+	if len(rootDomainArr) == 0 {
+		return nil, errors.New("Unsupported top level domain. Check your rawURL or add new top level domain to top_level_domain.json ")
+	}
+	hostArr = append(hostArr, strings.Join(rootDomainArr, "."))
+	return hostArr, err
 }
 
 // getHost get the host of url
@@ -57,33 +88,5 @@ func splitHost(rawURL string) ([]string, error) {
 			hostArr = append(hostArr[:index], hostArr[index+1:]...)
 		}
 	}
-	return hostArr, err
-}
-
-// getDomainArr get the domain string arr of rawURL
-func getDomainArr(rawURL string) ([]string, error) {
-	hostArr, err := splitHost(rawURL)
-	if err != nil {
-		return nil, err
-	}
-	var (
-		rootDomainArr []string
-		domainMap     = top_level_domain.TopLevelDomainTree
-	)
-	for i := len(hostArr) - 1; i >= 0; i-- {
-		if domain, ok := domainMap[hostArr[i]]; ok {
-			rootDomainArr = append([]string{hostArr[i]}, rootDomainArr...)
-			hostArr = hostArr[:i]
-			if domain == nil {
-				break
-			} else {
-				domainMap = *domain
-			}
-		}
-	}
-	if len(rootDomainArr) == 0 {
-		return nil, errors.New("Unsupported top level domain. Check your rawURL or add new top level domain to top_level_domain.json ")
-	}
-	hostArr = append(hostArr, strings.Join(rootDomainArr, "."))
 	return hostArr, err
 }
