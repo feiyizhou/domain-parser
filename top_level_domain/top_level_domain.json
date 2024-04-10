@@ -149,5 +149,17 @@
   "cafe": null,
   "cash": null,
   "cab": null,
-  "media": null
+  "media": null,
+  "edu": null,
+  "gov": null,
+  "int": null,
+  "mil": null,
+  "org": null,
+  "name": null,
+  "museum": null,
+  "coop": null,
+  "aero": null,
+  "xxx": null,
+  "idv": null,
+  "dev": null
 }
