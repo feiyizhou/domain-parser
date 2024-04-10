@@ -39,6 +39,12 @@ func main() {
 		log.Fatal(err)
 	}
 	fmt.Println(domain)
+	
+	domainArr, err := domain_parser.GetDomainArr(rawURL)
+	if err != nil {
+		log.Fatalln(err)
+	}
+	fmt.Println(domainArr)
 }
 
 ```
