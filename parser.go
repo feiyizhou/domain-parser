@@ -81,6 +81,9 @@ func getDomainArr(rawURL string) ([]string, error) {
 			}
 		}
 	}
+	if len(rootDomainArr) == 0 {
+		return nil, errors.New("Unsupported top level domain. Check your rawURL or add new top level domain to top_level_domain.json ")
+	}
 	hostArr = append(hostArr, strings.Join(rootDomainArr, "."))
 	return hostArr, err
 }
