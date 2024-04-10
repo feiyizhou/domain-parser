@@ -1,7 +1,5 @@
 # domain-parser
 
----
-
 [![Go Report Card](https://goreportcard.com/badge/github.com/feiyizhou/domain-parser)](https://goreportcard.com/report/github.com/feiyizhou/domain-parser)
 [![standard-readme compliant](https://img.shields.io/badge/readme%20style-standard-brightgreen.svg?style=flat-square)](https://github.com/RichardLitt/standard-readme)
 
@@ -11,15 +9,11 @@ Domain Parser can parse any URL. You can obtain the root domain directly or obta
 
 ## Install
 
----
-
 ```shell
 go install github.com/feiyizhou/domain-parser@latest 
 ```
 
 ## Usage
-
----
 
 ```go
 package main
@@ -50,7 +44,5 @@ func main() {
 ```
 
 ## License
-
----
 
 Domain Parser is available as open source under the terms of the [MIT License](https://github.com/feiyizhou/domain-parser/blob/main/LICENSE)
