@@ -1,5 +1,6 @@
 # domain-parser
 
+[![Go Report Card](https://pkg.go.dev/badge/github.com/feiyizhou/domain-parser)](https://pkg.go.dev/github.com/feiyizhou/domain-parser)
 [![Go Report Card](https://goreportcard.com/badge/github.com/feiyizhou/domain-parser)](https://goreportcard.com/report/github.com/feiyizhou/domain-parser)
 [![standard-readme compliant](https://img.shields.io/badge/readme%20style-standard-brightgreen.svg?style=flat-square)](https://github.com/RichardLitt/standard-readme)
 
